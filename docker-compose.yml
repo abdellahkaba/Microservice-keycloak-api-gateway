@@ -1,0 +1,127 @@
+version: '3.8'
+services:
+  postgres:
+    container_name: ms_pg_sql
+    image: postgres
+    environment:
+      POSTGRES_USER: isi
+      POSTGRES_PASSWORD: isi
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      - microservices-net
+    restart: unless-stopped
+
+  pgadmin:
+    container_name: ms_pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    ports:
+      - 5050:80
+    networks:
+      - microservices-net
+    restart: unless-stopped
+  keycloak:
+    container_name: keycloak-ms
+    image: quay.io/keycloak/keycloak:24.0.2
+    ports:
+      - 1010:8080
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    networks:
+      - microservices-net
+    command:
+      - "start-dev"
+
+#  mongodb:
+#    container_name: ms_mongo_db
+#    image: mongo:latest
+#    ports:
+#      - 27017:27017
+#    volumes:
+#      - mongo:/data/db
+#    environment:
+#      - MONGO_INITDB_ROOT_USERNAME=isi
+#      - MONGO_INITDB_ROOT_PASSWORD=isi
+#    networks:
+#      - microservices-net
+#    restart: unless-stopped
+
+#  mongo-express:
+#    container_name: ms_mongo_express
+#    image: mongo-express
+#    ports:
+#      - 8081:8081
+#    environment:
+#      - ME_CONFIG_MONGODB_ADMINUSERNAME=isi
+#      - ME_CONFIG_MONGODB_ADMINPASSWORD=isi
+#      - ME_CONFIG_MONGODB_SERVER=mongodb
+#      - ME_CONFIG_BASICAUTH_USERNAME=isi
+#      - ME_CONFIG_BASICAUTH_PASSWORD=isi
+#    networks:
+#      - microservices-net
+#    restart: always
+
+#  zookeeper:
+#    image: confluentinc/cp-zookeeper:latest
+#    container_name: zookeeper
+#    environment:
+#      ZOOKEEPER_SERVER_ID: 1
+#      ZOOKEEPER_CLIENT_PORT: 2181
+#      ZOOKEEPER_TICK_TIME: 2000
+#    ports:
+#      - 22181:2181
+#    networks:
+#      - microservices-net
+#    restart: unless-stopped
+
+#  kafka:
+#    image: confluentinc/cp-kafka:latest
+#    container_name: ms_kafka
+#    ports:
+#      - 9092:9092
+#    depends_on:
+#      - zookeeper
+#    environment:
+#      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+#      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+#      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+#      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+#      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+#      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://ms_kafka:9092,PLAINTEXT_HOST://localhost:9092
+#      KAFKA_BROKER_ID: 1
+#      KAFKA_LOG_DIRS: /var/lib/kafka/data
+#    volumes:
+#      - kafka-data:/var/lib/kafka/data
+#    networks:
+#      - microservices-net
+#    restart: unless-stopped
+
+#  mail_dev:
+#    container_name: ms_mail_dev
+#    image: maildev/maildev
+#    ports:
+#      - 1080:1080
+#      - 1025:1025
+#    networks:
+#      - microservices-net
+#    restart: unless-stopped
+
+networks:
+  microservices-net:
+    driver: bridge
+volumes:
+  postgres:
+  pgadmin:
+  keycloak-ms:
+#  mongo:
+#  kafka-data:

@@ -1,0 +1,17 @@
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: departement-service
+          uri: lb:http://DEPARTEMENT-SERVICE
+          predicates:
+            - Path=/api/v1/departements/**
+        - id: employe-service
+          uri: lb:http://EMPLOYE-SERVICE
+          predicates:
+            - Path=/api/v1/employes/**
+server:
+  port: 8222

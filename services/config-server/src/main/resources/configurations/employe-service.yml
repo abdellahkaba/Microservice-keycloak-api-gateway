@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/employe
+    username: isi
+    password: isi
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+server:
+  port: 2221
+application:
+  config:
+    departement-url: http://localhost:8222/api/v1/departements
+#    payement-url: http://localhost:8222/api/v1/payements
+#    produit-url: http://localhost:8222/api/v1/produits
