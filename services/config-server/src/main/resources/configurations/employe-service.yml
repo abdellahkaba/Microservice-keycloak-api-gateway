@@ -15,5 +15,6 @@ server:
 application:
   config:
     departement-url: http://localhost:8222/api/v1/departements
+    post-url: http://localhost:8222/api/v1/posts
 #    payement-url: http://localhost:8222/api/v1/payements
 #    produit-url: http://localhost:8222/api/v1/produits

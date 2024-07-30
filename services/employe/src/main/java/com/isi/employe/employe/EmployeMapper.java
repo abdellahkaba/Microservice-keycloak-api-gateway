@@ -40,7 +40,8 @@ public class EmployeMapper {
                 employe.getDateNaissance(),
                 employe.getTel(),
                 employe.getStatut(),
-                employe.getDepartementId()
+                employe.getDepartementId(),
+                employe.getPostId()
         );
     }
 }

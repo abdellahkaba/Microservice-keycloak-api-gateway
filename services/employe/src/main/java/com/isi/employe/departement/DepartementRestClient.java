@@ -16,6 +16,6 @@ public interface DepartementRestClient {
     Optional<DepartementResponse> findDepartementById(
             @PathVariable("departement-id") Integer departementId
     );
-    @GetMapping
-    Optional<DepartementResponse> getAllDepartement();
+//    @GetMapping
+//    Optional<DepartementResponse> getAllDepartement();
 }

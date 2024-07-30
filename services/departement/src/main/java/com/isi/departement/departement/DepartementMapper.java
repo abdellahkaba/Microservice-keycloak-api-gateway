@@ -13,13 +13,15 @@ public class DepartementMapper {
         return Departement.builder()
                 .id(request.id())
                 .nom(request.nom())
+                .description(request.description())
                 .build();
     }
 
     public DepartementResponse fromDepartement(Departement departement) {
         return new DepartementResponse(
                 departement.getId(),
-                departement.getNom()
+                departement.getNom(),
+                departement.getDescription()
         );
     }
 

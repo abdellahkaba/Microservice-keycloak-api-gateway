@@ -24,14 +24,17 @@ public class DepartementController {
         return ResponseEntity.ok(service.findAllDepartement());
     }
 
-    @PutMapping
+    @PutMapping("/{departement-id}")
     public ResponseEntity<Void> updateDepartement(
-            @RequestBody @Valid DepartementRequest request
+            @PathVariable("departement-id") Integer id,
+            @RequestBody @Valid UpdateDepartementRequest request
     ){
+        request = new UpdateDepartementRequest(id,
+                request.nom(),
+                request.description());
         service.updateDepartement(request);
         return ResponseEntity.accepted().build();
     }
-
     @GetMapping("/exists/{departement-id}")
     public ResponseEntity<Boolean> existById(
             @PathVariable("departement-id") Integer departementId

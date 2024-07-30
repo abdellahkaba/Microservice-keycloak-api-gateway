@@ -14,6 +14,7 @@ public record UpdateEmployeRequest(
         LocalDate dateNaissance,
         String tel,
         Statut statut,
-        Integer departementId
+        Integer departementId,
+        Integer postId
 ) {
 }

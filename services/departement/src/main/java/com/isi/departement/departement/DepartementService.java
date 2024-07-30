@@ -32,7 +32,7 @@ public class DepartementService {
                 .collect(Collectors.toList());
     }
 
-    public void updateDepartement(DepartementRequest request) {
+    public void updateDepartement(UpdateDepartementRequest request) {
         var departement = repository.findById(request.id())
                 .orElseThrow(() -> new DepartementNotFoundException(
                         String.format("Le departement non trouvé ID:: %s", request.id())
@@ -41,11 +41,14 @@ public class DepartementService {
         repository.save(departement);
     }
 
-    private void mergeDepartement(Departement departement, DepartementRequest request){
+    private void mergeDepartement(Departement departement, UpdateDepartementRequest request){
         if (StringUtils.isNotBlank(request.nom()) &&
             !request.nom().equals(departement.getNom()) &&
                 repository.findByNom(request.nom()).isPresent()){
             throw new NomConflictException("Le nom existe deja !");
+        }
+        if (StringUtils.isNotBlank(request.description())){
+            departement.setDescription(request.description());
         }
     }
 

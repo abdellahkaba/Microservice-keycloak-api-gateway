@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="config-server" />
         <module name="departement" />
+        <module name="post" />
         <module name="employe" />
         <module name="discovery" />
         <module name="gateway" />
@@ -33,6 +34,7 @@
       <module name="gateway" options="-parameters" />
       <module name="notification" options="-parameters" />
       <module name="payement" options="-parameters" />
+      <module name="post" options="-parameters" />
       <module name="produit" options="-parameters" />
     </option>
   </component>

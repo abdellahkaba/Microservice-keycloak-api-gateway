@@ -36,7 +36,7 @@ public class EmployeController {
                 request.adresse(),
                 request.dateNaissance(),
                 request.tel(), request.statut(),
-                request.departementId());
+                request.departementId(), request.postId());
         service.updateEmploye(request);
         return ResponseEntity.accepted().build();
     }

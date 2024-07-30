@@ -11,6 +11,7 @@ public record EmployeResponse1(
         LocalDate dateNaissance,
         String tel,
         Statut statut,
-        Integer departementId
+        Integer departementId,
+        Integer postId
 ) {
 }

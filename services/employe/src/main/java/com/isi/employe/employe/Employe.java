@@ -29,5 +29,6 @@ public class Employe {
     @Enumerated(EnumType.STRING)
     private Statut statut;
     private Integer departementId;
+    private Integer postId;
 
 }

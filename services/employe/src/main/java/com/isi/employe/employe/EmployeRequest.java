@@ -25,7 +25,9 @@ public record EmployeRequest(
         String tel,
         @NotNull(message = "Veuillez donner le status de l'employè")
         Statut statut,
-        @NotNull(message = "Un employe doit etre dans departement")
-        Integer departementId
+        @NotNull(message = "Un employe doit être dans departement")
+        Integer departementId,
+        @NotNull(message = "Un post doit être attribué à un employé")
+        Integer postId
 ) {
 }

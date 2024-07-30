@@ -6,6 +6,7 @@ import com.isi.employe.departement.DepartementRestClient;
 import com.isi.employe.exception.EmailConflictException;
 import com.isi.employe.exception.EmployeNotFoundException;
 import com.isi.employe.exception.TelConflictException;
+import com.isi.employe.post.PostRestClient;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
@@ -21,17 +22,26 @@ public class EmployeService {
     private final EmployeRepository repository;
     private final EmployeMapper mapper ;
     private final DepartementRestClient restClient;
+    private final PostRestClient postRestClient ;
     public String createEmploye(EmployeRequest request) {
         var departement = this.restClient.findDepartementById(
                 request.departementId())
                 .orElseThrow(() -> new EmployeNotFoundException(
-                        "Il attribué un employé à un departement"
+                        "Il faut attribuer un employé à un departement"
+                ));
+        var post = this.postRestClient.findPostById(
+                request.postId())
+                .orElseThrow(() -> new EmployeNotFoundException(
+                        "Il faut attribuer un employé à un poste"
                 ));
         if (repository.findByEmail(request.email()).isPresent()){
            throw new EmailConflictException("L'email existe deja !");
         }
         if (departement==null){
             throw new EmployeNotFoundException("Il faut preciser le departement");
+        }
+        if (post == null){
+            throw new EmployeNotFoundException("Il faut preciser le post");
         }
         if (repository.findByTel(request.tel()).isPresent()){
             throw new TelConflictException("Ce numero de Téléphone existe dejà");
@@ -95,6 +105,12 @@ public List<EmployeResponse> findAllEmploye() {
         }
         if (request.statut() != null) {
             employe.setStatut(request.statut());
+        }
+        if (request.departementId() != null){
+            employe.setDepartementId(request.departementId());
+        }
+        if (request.postId() != null) {
+            employe.setPostId(request.postId());
         }
         /*if (request.departementId() != null) {
             var departement = restClient.findDepartementById(request.departementId())
