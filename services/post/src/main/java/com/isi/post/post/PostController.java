@@ -29,6 +29,12 @@ public class PostController {
     ){
         return ResponseEntity.ok(service.findById(postId));
     }
+    @GetMapping("/exists/{post-id}")
+    public ResponseEntity<Boolean> existById(
+            @PathVariable("post-id") Integer postId
+    ){
+        return ResponseEntity.ok(service.existById(postId));
+    }
     @PutMapping("/{post-id}")
     public ResponseEntity<Void> updatePost(@PathVariable("post-id") Integer id, @RequestBody @Valid UpdatePostRequest request) {
         request = new UpdatePostRequest(id,

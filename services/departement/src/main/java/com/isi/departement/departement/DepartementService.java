@@ -47,6 +47,9 @@ public class DepartementService {
                 repository.findByNom(request.nom()).isPresent()){
             throw new NomConflictException("Le nom existe deja !");
         }
+        if(StringUtils.isNotBlank(request.nom())){
+            departement.setNom(request.nom());
+        }
         if (StringUtils.isNotBlank(request.description())){
             departement.setDescription(request.description());
         }
@@ -64,7 +67,12 @@ public class DepartementService {
                         String.format("Le departement non trouvé")
                 ));
     }
-    public void deleteDepartement(Integer departementId){
+    public void deleteDepartement(Integer departementId) {
+        if (!repository.existsById(departementId)) {
+            throw new DepartementNotFoundException(
+                    String.format("Le departement non trouvé ID:: %s", departementId)
+            );
+        }
         repository.deleteById(departementId);
     }
 }

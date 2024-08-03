@@ -29,7 +29,8 @@ public class DepartementController {
             @PathVariable("departement-id") Integer id,
             @RequestBody @Valid UpdateDepartementRequest request
     ){
-        request = new UpdateDepartementRequest(id,
+        request = new UpdateDepartementRequest(
+                id,
                 request.nom(),
                 request.description());
         service.updateDepartement(request);

@@ -13,7 +13,7 @@ spring:
           uri: lb:http://EMPLOYE-SERVICE
           predicates:
             - Path=/api/v1/employes/**
-        - id: employe-service
+        - id: post-service
           uri: lb:http://POST-SERVICE
           predicates:
             - Path=/api/v1/posts/**

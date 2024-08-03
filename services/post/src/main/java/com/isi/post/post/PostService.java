@@ -50,11 +50,24 @@ public class PostService {
                 repository.findByTitre(request.titre()).isPresent()) {
             throw new TitreConflictException("Ce Poste existe déjà");
         }
+        if (StringUtils.isNotBlank(request.titre())){
+            post.setTitre(request.titre());
+        }
         if (StringUtils.isNotBlank(request.description())) {
             post.setDescription(request.description());
         }
     }
+
+    public Boolean existById(Integer postId) {
+        return repository.findById(postId)
+                .isPresent();
+    }
     public void deletePost(Integer postId) {
+        if (!repository.existsById(postId)) {
+            throw new PostNotFoundException(
+                    String.format("Le Post non trouvé ID:: %s", postId)
+            );
+        }
         repository.deleteById(postId);
     }
 }

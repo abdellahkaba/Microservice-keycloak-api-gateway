@@ -135,9 +135,15 @@ public EmployeResponse1 findById(String employeId) {
     return employe ;
 }
     public void deleteEmploye(String employeId){
+        if (!repository.existsById(employeId)) {
+            throw new EmployeNotFoundException(
+                    String.format("L'Employé non trouvé ID:: %s", employeId)
+            );
+        }
         repository.deleteById(employeId);
     }
-    public List<EmployeResponse1> findAl () {
+
+    public List<EmployeResponse1> findAll () {
         return repository.findAll()
                 .stream()
                 .map(mapper::fromEmploye)

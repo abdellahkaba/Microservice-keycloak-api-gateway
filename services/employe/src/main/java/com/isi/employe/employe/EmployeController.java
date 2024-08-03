@@ -25,7 +25,7 @@ public class EmployeController {
 //    }
     @GetMapping
     public ResponseEntity<List<EmployeResponse1>> findAll(){
-        return ResponseEntity.ok(service.findAl());
+        return ResponseEntity.ok(service.findAll());
     }
     @PutMapping("/{employe-id}")
     public ResponseEntity<Void> updateEmploye(@PathVariable("employe-id") String id, @RequestBody @Valid UpdateEmployeRequest request) {
